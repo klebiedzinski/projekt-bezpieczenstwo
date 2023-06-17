@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 const Products = ({ products, setProducts }) => {
-
     const handleDelete = (id) => () => {
         axios.delete(`http://localhost:3001/api/products/${id}`)
         .then((response) => {

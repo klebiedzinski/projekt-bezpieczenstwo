@@ -16,15 +16,36 @@ function App() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [user, setUser] = useState(null);
   const [products, setProducts] = useState([])
+  const { keycloak, initialized } = useKeycloak();
   
-  useEffect(() => {
-    axios.get("http://localhost:3001/api/products").then((response) => {
-      setProducts(response.data);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }, []);
+    useEffect(() => {
+      if (initialized) {
+        keycloak
+          .updateToken(5)
+          .then((refreshed) => {
+            if (refreshed) {
+              axios
+                .get('http://localhost:3001/api/products', {
+                  headers: {
+                    Authorization: `Bearer ${keycloak.token}`,
+                  },
+                })
+                .then((response) => {
+                  setProducts(response.data);
+                  console.log(response.status);  
+                })
+                .catch((error) => {
+                  // Handle the error
+                  console.error('Error fetching data:', error);
+                });
+            }
+          })
+          .catch((error) => {
+            console.error('Error updating token:', error);
+          });
+      }
+    }, [keycloak, initialized]);
+  
 // const productsHardCoded = [
 //     {
 //       id: 1,
@@ -46,9 +67,6 @@ function App() {
 //     },
 //   ];
 
-const test = () => {
-
-}
 
   return (
     <ReactKeycloakProvider authClient={keycloak}>
