@@ -8,7 +8,6 @@ import Navbar from './Components/Navbar';
 import "./App.css";
 import { ReactKeycloakProvider } from "@react-keycloak/web";
 import keycloak from "./Keycloak"
-import { useKeycloak } from "@react-keycloak/web";
 import axios from "axios";
 
 
@@ -16,35 +15,8 @@ function App() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [user, setUser] = useState(null);
   const [products, setProducts] = useState([])
-  const { keycloak, initialized } = useKeycloak();
   
-    useEffect(() => {
-      if (initialized) {
-        keycloak
-          .updateToken(5)
-          .then((refreshed) => {
-            if (refreshed) {
-              axios
-                .get('http://localhost:3001/api/products', {
-                  headers: {
-                    Authorization: `Bearer ${keycloak.token}`,
-                  },
-                })
-                .then((response) => {
-                  setProducts(response.data);
-                  console.log(response.status);  
-                })
-                .catch((error) => {
-                  // Handle the error
-                  console.error('Error fetching data:', error);
-                });
-            }
-          })
-          .catch((error) => {
-            console.error('Error updating token:', error);
-          });
-      }
-    }, [keycloak, initialized]);
+
   
 // const productsHardCoded = [
 //     {

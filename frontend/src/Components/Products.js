@@ -1,5 +1,8 @@
 import React from "react";
 import axios from "axios";
+import { useEffect } from "react";
+import keycloak from "../Keycloak";
+
 const Products = ({ products, setProducts }) => {
     const handleDelete = (id) => () => {
         axios.delete(`http://localhost:3001/api/products/${id}`)
@@ -11,6 +14,34 @@ const Products = ({ products, setProducts }) => {
             console.log(error);
         });
         };
+        const { initialized } = keycloak;
+        useEffect(() => {
+          if (initialized) {
+            keycloak
+              .updateToken(5)
+              .then((refreshed) => {
+                if (refreshed) {
+                  axios
+                    .get('http://localhost:3001/api/products', {
+                      headers: {
+                        Authorization: `Bearer ${keycloak.token}`,
+                      },
+                    })
+                    .then((response) => {
+                      setProducts(response.data);
+                      console.log(response.status);  
+                    })
+                    .catch((error) => {
+                      // Handle the error
+                      console.error('Error fetching data:', error);
+                    });
+                }
+              })
+              .catch((error) => {
+                console.error('Error updating token:', error);
+              });
+          }
+        }, [keycloak, initialized]);
   return (
     <div className="products">
       {products.map((product) => (
