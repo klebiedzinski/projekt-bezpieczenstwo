@@ -8,6 +8,7 @@ import Navbar from './Components/Navbar';
 import "./App.css";
 import { ReactKeycloakProvider } from "@react-keycloak/web";
 import keycloak from "./Keycloak"
+import { useKeycloak } from "@react-keycloak/web";
 
 
 function App() {
@@ -33,6 +34,10 @@ function App() {
       price: 300,
     },
   ]);
+
+const test = () => {
+
+}
 
   return (
     <ReactKeycloakProvider authClient={keycloak}>
