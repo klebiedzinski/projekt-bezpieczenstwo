@@ -1,4 +1,4 @@
-import ManageProducts from "../Components/MenageProducts";
+import Products from "../Components/Products";
 import ProductForm from "../Components/ProductForm";
 const AdminPanel = ({ products, setProducts }) => {
   // Calculate the total number of products
@@ -12,7 +12,7 @@ const AdminPanel = ({ products, setProducts }) => {
 
   return (
     <main className="admin-panel">
-        <ManageProducts products={products} setProducts={setProducts}/>
+        <Products products={products} setProducts={setProducts}/>
         <ProductForm products={products} setProducts={setProducts}/>
     </main>
   );

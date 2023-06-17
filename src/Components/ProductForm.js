@@ -1,9 +1,8 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 function ProductForm({ products, setProducts }) {
-  const navigate = useNavigate();
 
   // Initial form values
   const initialValues = {
@@ -40,8 +39,16 @@ function ProductForm({ products, setProducts }) {
       price: values.price,
     };
 
-    setProducts([...products, newProduct]);
-    navigate("/products");
+    axios.post("http://localhost:3001/api/products", newProduct)
+      .then((response) => {
+        setProducts(response.data);
+        console.log(response.status);
+      }
+      )
+      .catch((error) => {
+        console.log(error);
+      }
+      );
   };
 
   return (
