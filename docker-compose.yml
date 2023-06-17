@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+  web:
+    build: ./frontend
+    ports:
+      - "80:80"
+  backend:
+    build: ./backend
+    ports:
+      - "3001:3001"
+  keycloak:
+    image: piotrwasilewski420/keycloak:2
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+    ports:
+      - "8080:8080"
