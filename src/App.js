@@ -44,9 +44,9 @@ function App() {
           <Route path="/products" element={<Products products={products} setProducts={setProducts} />} />
           <Route
             path="/admin"
-            element={isAdmin ? <AdminPanel /> : <Home user={user} />}
+            // element={isAdmin ? <AdminPanel /> : <Home user={user} />}
+            element={<AdminPanel products={products} setProducts={setProducts} />}
             />
-          <Route path="/form" element={<ProductForm products={products} setProducts={setProducts} />} />
         </Routes>
         </main>
       </div>

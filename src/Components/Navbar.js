@@ -13,9 +13,6 @@ const Navbar = () => {
             <Link to={"/admin"} >
                 Admin
             </Link>
-            <Link to={"/form"} >
-                Form
-            </Link>
             <Link to={"/products"} >
                 Products
             </Link>

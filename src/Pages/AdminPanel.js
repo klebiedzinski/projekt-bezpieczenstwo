@@ -1,9 +1,21 @@
-const AdminPanel = () => {
-    return ( 
-        <div>
-            <h2>Admin Panel</h2>
-        </div>
-     );
-}
- 
+import ManageProducts from "../Components/MenageProducts";
+import ProductForm from "../Components/ProductForm";
+const AdminPanel = ({ products, setProducts }) => {
+  // Calculate the total number of products
+  const totalProducts = products.length;
+
+  // Calculate the total price of all products
+  const totalPrice = products.reduce(
+    (accumulator, product) => accumulator + product.price,
+    0
+  );
+
+  return (
+    <main className="admin-panel">
+        <ManageProducts products={products} setProducts={setProducts}/>
+        <ProductForm products={products} setProducts={setProducts}/>
+    </main>
+  );
+};
+
 export default AdminPanel;
