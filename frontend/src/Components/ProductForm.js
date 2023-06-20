@@ -1,8 +1,10 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useKeycloak } from "@react-keycloak/web";
 function ProductForm({ products, setProducts }) {
+
+  const { keycloak} = useKeycloak();
 
   // Initial form values
   const initialValues = {
@@ -39,7 +41,9 @@ function ProductForm({ products, setProducts }) {
       price: values.price,
     };
 
-    axios.post("http://localhost:3001/api/products", newProduct)
+    axios.post("http://localhost:3001/api/products", newProduct, { headers: {
+      'Authorization': `Bearer ${keycloak.token}`,
+    }})
       .then((response) => {
         setProducts(response.data);
         console.log(response.status);

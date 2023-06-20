@@ -9,7 +9,7 @@ services:
     ports:
       - "3001:3001"
   keycloak:
-    image: piotrwasilewski420/keycloak:2
+    image: piotrwasilewski420/keycloak:3
     environment:
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=admin
