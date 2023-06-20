@@ -1,11 +1,14 @@
 import React from "react";
 import axios from "axios";
 import { useEffect } from "react";
-import keycloak from "../Keycloak";
+import { useKeycloak } from "@react-keycloak/web";
 
 const Products = ({ products, setProducts }) => {
+    const { keycloak } = useKeycloak();
     const handleDelete = (id) => () => {
-        axios.delete(`http://localhost:3001/api/products/${id}`)
+        axios.delete(`http://localhost:3001/api/products/${id}` , { headers: {
+            'Authorization': `Bearer ${keycloak.token}`,
+        }})
         .then((response) => {
             setProducts(response.data);
             console.log(response.status);
