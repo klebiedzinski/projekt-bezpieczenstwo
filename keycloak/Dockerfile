@@ -1,0 +1,1 @@
+FROM piotrwasilewski420/keycloak:2 

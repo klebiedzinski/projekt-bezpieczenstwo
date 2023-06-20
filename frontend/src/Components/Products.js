@@ -17,6 +17,7 @@ const Products = ({ products, setProducts }) => {
         const { initialized } = keycloak;
         useEffect(() => {
           if (initialized) {
+            console.log('siema');
             keycloak
               .updateToken(5)
               .then((refreshed) => {
